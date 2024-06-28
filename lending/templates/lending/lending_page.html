@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Lending Page</title>
+</head>
+<body>
+    <header>
+        <h1>Bizning lending page(varoq?) ga hush kelibsiz lekin bu DINO o'yini :)</h1>
+    </header>
+
+    <footer>
+        <p>biz bilan boglaning: mr.khan.r35@gmail.com</p>
+    </footer>
+
+    <h1>Chrome Dino O'yini</h1>
+    <canvas id="gameCanvas" width="600" height="150"></canvas>
+
+    <audio id="jumpSound" src="jump.mp3"></audio>
+    <audio id="dieSound" src="die.mp3"></audio>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        let dino = { 
+            x: 50, 
+            y: 100, 
+            width: 20, 
+            height: 20, 
+            vy: 0, 
+            gravity: 0.5, 
+            jump: -12, 
+            grounded: false 
+        };
+        let obstacles = [];
+        let gameOver = false;
+        let score = 0;
+
+        const jumpSound = document.getElementById('jumpSound');
+        const dieSound = document.getElementById('dieSound');
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                if (gameOver) {
+                    resetGame();
+                } else if (dino.grounded) {
+                    dino.vy = dino.jump;
+                    dino.grounded = false;
+                    jumpSound.play();
+                }
+            }
+        });
+
+        function update() {
+            if (gameOver) return;
+
+            dino.vy += dino.gravity;
+            dino.y += dino.vy;
+
+            if (dino.y + dino.height > canvas.height) {
+                dino.y = canvas.height - dino.height;
+                dino.grounded = true;
+                dino.vy = 0;
+            }
+
+            if (Math.random() < 0.01) {
+                obstacles.push({ x: canvas.width, y: canvas.height - 20, width: 20, height: 20 });
+            }
+
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                obstacles[i].x -= 2;
+                if (obstacles[i].x + obstacles[i].width < 0) {
+                    obstacles.splice(i, 1);
+                    score++;
+                }
+                if (dino.x < obstacles[i].x + obstacles[i].width &&
+                    dino.x + dino.width > obstacles[i].x &&
+                    dino.y < obstacles[i].y + obstacles[i].height &&
+                    dino.y + dino.height > obstacles[i].y) {
+                    gameOver = true;
+                    dieSound.play();
+                }
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'black';
+            ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
+
+            ctx.fillStyle = 'red';
+            obstacles.forEach(obstacle => {
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            });
+
+            ctx.clearRect(0, 0, 100, 20); // Clear previous score
+            ctx.fillStyle = 'black';
+            ctx.fillText('Score: ' + score, 10, 10);
+
+            requestAnimationFrame(update);
+        }
+
+        function resetGame() {
+            dino = { 
+                x: 50, 
+                y: 100, 
+                width: 20, 
+                height: 20, 
+                vy: 0, 
+                gravity: 0.5, 
+                jump: -12, 
+                grounded: false 
+            };
+            obstacles = [];
+            gameOver = false;
+            score = 0;
+            update();
+        }
+
+        update();
+
+    </script>
+</body>
+</html>
+

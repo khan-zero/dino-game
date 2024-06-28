@@ -1,0 +1,31 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-28 17:24+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: templates/lending/lending.html:5 templates/lending/lending_dino.html:8
+msgid "Lending Page"
+msgstr "Lending Varog'i(?)"
+
+#: templates/lending/lending.html:9
+msgid "Welcome to Our Lending Page buut it's DINO gamee :)"
+msgstr "Bizning Lending \"varog'imizga\" hush kelibsiz. Lekin bu DINOzavr o'yini :)"
+
+#: templates/lending/lending.html:14
+msgid "Contact us at: mr.khan.r35@gmail.com"
+msgstr "Biz bilan aloqa: mr.khan.r35@gmail.com"
